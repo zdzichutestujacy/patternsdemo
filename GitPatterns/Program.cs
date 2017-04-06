@@ -35,10 +35,26 @@ namespace GitPatterns
             //logger = loggerFactory.CreateLogger(LoggerType.Cool);
             //logger.Log();
 
-            Console.WriteLine(Singleton.Instance.Version);
-            Singleton.Instance.Version = "2.0";
-            Console.WriteLine(Singleton.Instance.Version);
+            // for singleton example
 
+            //Console.WriteLine(Singleton.Instance.Version);
+            //Singleton.Instance.Version = "2.0";
+            //Console.WriteLine(Singleton.Instance.Version);
+
+            // for adapter pattern example
+
+            DTOPerson person = new DTOPerson
+            {
+                fName = "Jane",
+                lName = "Doe",
+                job = "whatever"
+            };
+            PersonAdapter PersonAdapter = new PersonAdapter();
+            PersonAdapter.addPerson(person);
+            foreach (var p in PersonAdapter.getPeople())
+            {
+                Console.WriteLine("{0} {1} {2}", p.firstName, p.lastName, p.position);
+            }
         }
     }
 }

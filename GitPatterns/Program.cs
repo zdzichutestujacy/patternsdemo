@@ -7,20 +7,60 @@ using System.Threading.Tasks;
 
 namespace GitPatterns
 {
-    public interface ILog
+
+    interface ILog
     {
         void Log();
     }
 
-    public abstract class Logger : ILog
+    interface ILogBuilder
     {
+        void BuildLevel();
+        Logger Logger { get; }
+    }
+
+    class Builder
+    {
+        public Logger Build(ILogBuilder LogBuilder)
+        {
+            LogBuilder.BuildLevel();
+            return LogBuilder.Logger;
+        }
+    }
+
+    abstract class Logger : ILog
+    {
+        public virtual int level { get; set; } // some abstract prop
         public virtual void Log()
         {
             throw new NotImplementedException();
         }
     }
 
-    public class CoolLogger : Logger
+    sealed class CoolLoggerBuilder : ILogBuilder
+    {
+        private Logger _logger;
+
+        public CoolLoggerBuilder()
+        {
+            _logger = new CoolLogger();
+        }
+
+        public Logger Logger
+        {
+            get
+            {
+                return _logger;
+            }
+        }
+
+        public void BuildLevel()
+        {
+            _logger.level = 5;
+        }
+    }
+
+    class CoolLogger : Logger
     {
         public override void Log()
         {
@@ -28,7 +68,7 @@ namespace GitPatterns
         }
     }
 
-    public class BadLogger : Logger
+    class BadLogger : Logger
     {
         public override void Log()
         {
@@ -41,13 +81,17 @@ namespace GitPatterns
         static void Main(string[] args)
         {
             Logger logger;
-            Random random = new Random();
-            if (random.NextDouble() > .5)
-                logger = new CoolLogger();
-            else
-                logger = new BadLogger();
+
+            //Random random = new Random();
+            //if (random.NextDouble() > .5)
+            //    logger = new CoolLogger();
+            //else
+            //    logger = new BadLogger();
+
+            Builder builder = new Builder();
+            logger = builder.Build(new CoolLoggerBuilder());
+            Console.WriteLine(logger.level);
             logger.Log();
-            Console.ReadKey();
         }
     }
 }

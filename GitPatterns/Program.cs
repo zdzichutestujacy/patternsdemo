@@ -34,6 +34,11 @@ namespace GitPatterns
             //LoggerFactory loggerFactory = new LoggerFactory();
             //logger = loggerFactory.CreateLogger(LoggerType.Cool);
             //logger.Log();
+
+            Console.WriteLine(Singleton.Instance.Version);
+            Singleton.Instance.Version = "2.0";
+            Console.WriteLine(Singleton.Instance.Version);
+
         }
     }
 }

@@ -7,6 +7,11 @@ using System.Threading.Tasks;
 
 namespace GitPatterns
 {
+    enum LoggerType
+    {
+        Cool,
+        Bad
+    }
 
     interface ILog
     {
@@ -76,11 +81,31 @@ namespace GitPatterns
         }
     }
 
+    /*
+     * factory method 
+     */
+     
+    class LoggerFactory
+    {
+        public Logger CreateLogger (LoggerType type)
+        {
+            switch (type)
+            {
+                case LoggerType.Cool:
+                    return new CoolLogger();
+                default:
+                    return new BadLogger();
+            }
+        }
+    }
+
     class Program
     {
         static void Main(string[] args)
         {
             Logger logger;
+
+            // for abstract factory example
 
             //Random random = new Random();
             //if (random.NextDouble() > .5)
@@ -88,9 +113,15 @@ namespace GitPatterns
             //else
             //    logger = new BadLogger();
 
-            Builder builder = new Builder();
-            logger = builder.Build(new CoolLoggerBuilder());
-            Console.WriteLine(logger.level);
+            // for builder pattern example
+
+            //Builder builder = new Builder();
+            //logger = builder.Build(new CoolLoggerBuilder());
+            //Console.WriteLine(logger.level);
+            //logger.Log();
+
+            LoggerFactory loggerFactory = new LoggerFactory();
+            logger = loggerFactory.CreateLogger(LoggerType.Cool);
             logger.Log();
         }
     }

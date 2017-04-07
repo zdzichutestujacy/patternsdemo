@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Builder.cs" />
+    <Compile Include="Decorator.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="LoggerFactory.cs" />
     <Compile Include="LoggerType.cs" />

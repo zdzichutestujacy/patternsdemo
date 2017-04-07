@@ -43,18 +43,28 @@ namespace GitPatterns
 
             // for adapter pattern example
 
-            DTOPerson person = new DTOPerson
-            {
-                fName = "Jane",
-                lName = "Doe",
-                job = "whatever"
-            };
-            PersonAdapter PersonAdapter = new PersonAdapter();
-            PersonAdapter.addPerson(person);
-            foreach (var p in PersonAdapter.getPeople())
-            {
-                Console.WriteLine("{0} {1} {2}", p.firstName, p.lastName, p.position);
-            }
+            //DTOPerson person = new DTOPerson
+            //{
+            //    fName = "Jane",
+            //    lName = "Doe",
+            //    job = "whatever"
+            //};
+            //PersonAdapter PersonAdapter = new PersonAdapter();
+            //PersonAdapter.addPerson(person);
+            //foreach (var p in PersonAdapter.getPeople())
+            //{
+            //    Console.WriteLine("{0} {1} {2}", p.firstName, p.lastName, p.position);
+            //}
+
+            // for decorator pattern example
+
+            RegularProgrammer regularProgrammer = new RegularProgrammer { Nickname = "TheMe" };
+            JSProgrammerDecorator jsDecorated = new JSProgrammerDecorator(regularProgrammer) { Level = "godlike" };
+            SkillDecorator skillDecorated = new SkillDecorator(jsDecorated);
+            skillDecorated.Skill = "friendly, perceptive";
+            Console.WriteLine(skillDecorated.Info);
         }
+
+        
     }
 }

@@ -58,13 +58,40 @@ namespace GitPatterns
 
             // for decorator pattern example
 
-            RegularProgrammer regularProgrammer = new RegularProgrammer { Nickname = "TheMe" };
-            JSProgrammerDecorator jsDecorated = new JSProgrammerDecorator(regularProgrammer) { Level = "godlike" };
-            SkillDecorator skillDecorated = new SkillDecorator(jsDecorated);
-            skillDecorated.Skill = "friendly, perceptive";
-            Console.WriteLine(skillDecorated.Info);
+            //RegularProgrammer regularProgrammer = new RegularProgrammer { Nickname = "TheMe" };
+            //JSProgrammerDecorator jsDecorated = new JSProgrammerDecorator(regularProgrammer) { Level = "godlike" };
+            //SkillDecorator skillDecorated = new SkillDecorator(jsDecorated);
+            //skillDecorated.Skill = "friendly, perceptive";
+            //Console.WriteLine(skillDecorated.Info);
+
+            // for observer pattern example
+
+            SampleProduct coolProd = new SampleProduct { Qty = 3, Price = 19.99M };
+            Console.WriteLine("Product created. Qty: {0}, Price: {1}", coolProd.Qty, coolProd.Price);
+
+            SampleObserver observer1 = new SampleObserver();
+            observer1.QtyChanged += HandleQtyChanged;
+            SampleObserver observer2 = new SampleObserver((EventHandler<decimal>)HandlePriceChanged);
+
+            coolProd.Subscribe(observer1);
+            coolProd.Subscribe(observer2);
+
+            coolProd.Qty = 2;
+            coolProd.Price = 5.99M;
+
         }
 
-        
+        // methods for observer pattern 
+        public static void HandleQtyChanged(object sender, int qty)
+        {
+            Console.WriteLine("Qty changed: {0}", qty);
+        }
+
+        public static void HandlePriceChanged(object sender, decimal price)
+        {
+            Console.WriteLine("Price changed: {0}", price);
+        }
+
+
     }
 }

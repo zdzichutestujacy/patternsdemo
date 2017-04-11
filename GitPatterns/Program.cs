@@ -66,31 +66,37 @@ namespace GitPatterns
 
             // for observer pattern example
 
-            SampleProduct coolProd = new SampleProduct { Qty = 3, Price = 19.99M };
-            Console.WriteLine("Product created. Qty: {0}, Price: {1}", coolProd.Qty, coolProd.Price);
+            //SampleProduct coolProd = new SampleProduct { Qty = 3, Price = 19.99M };
+            //Console.WriteLine("Product created. Qty: {0}, Price: {1}", coolProd.Qty, coolProd.Price);
 
-            SampleObserver observer1 = new SampleObserver();
-            observer1.QtyChanged += HandleQtyChanged;
-            SampleObserver observer2 = new SampleObserver((EventHandler<decimal>)HandlePriceChanged);
+            //SampleObserver observer1 = new SampleObserver();
+            //observer1.QtyChanged += HandleQtyChanged;
+            //SampleObserver observer2 = new SampleObserver((EventHandler<decimal>)HandlePriceChanged);
 
-            coolProd.Subscribe(observer1);
-            coolProd.Subscribe(observer2);
+            //coolProd.Subscribe(observer1);
+            //coolProd.Subscribe(observer2);
 
-            coolProd.Qty = 2;
-            coolProd.Price = 5.99M;
+            //coolProd.Qty = 2;
+            //coolProd.Price = 5.99M;
 
+            // for state pattern 
+
+            Wlan wlan = new Wlan();
+            wlan.SwitchOff();
+            wlan.SwitchOn();
+            wlan.SwitchOff();
         }
 
         // methods for observer pattern 
-        public static void HandleQtyChanged(object sender, int qty)
-        {
-            Console.WriteLine("Qty changed: {0}", qty);
-        }
+        //public static void HandleQtyChanged(object sender, int qty)
+        //{
+        //    Console.WriteLine("Qty changed: {0}", qty);
+        //}
 
-        public static void HandlePriceChanged(object sender, decimal price)
-        {
-            Console.WriteLine("Price changed: {0}", price);
-        }
+        //public static void HandlePriceChanged(object sender, decimal price)
+        //{
+        //    Console.WriteLine("Price changed: {0}", price);
+        //}
 
 
     }
